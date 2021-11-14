@@ -5,7 +5,7 @@ const Search = () => {
     const [term, setTerm] = useState('');
     const [results, setResults] = useState([]);
 
-    console.log(results);
+    // console.log(results);
 
     useEffect(() => {
         const search = async () => {
@@ -21,10 +21,27 @@ const Search = () => {
             setResults(data.query.search);
         };
 
-        if(term) {
-            search();
+        if(term && !results.length) {
+            search(); //when searching for the first time to get instant results
+        } else {
+            const timeoutId = setTimeout(() => {
+                if(term) {
+                    search();
+                }
+            }, 1000);
+    
+            return () => {
+                clearTimeout(timeoutId);
+            };
         }
     }, [term]);
+
+    // useEffect(() => {
+    //     console.log("Initial render or term changed");
+    //     return () => {
+    //         console.log("CLEAN UP");
+    //     }
+    // }, [term]);
 
     const renderedResults = results.map((result) => {
         return (
