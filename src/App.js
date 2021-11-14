@@ -17,7 +17,7 @@ const items = [
     },
 ]
 
-export default () => {
+function App() {
     return (
         <div>
         <br />
@@ -25,3 +25,5 @@ export default () => {
         </div>
     );
 }
+
+export default App;
