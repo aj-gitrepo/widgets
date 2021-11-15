@@ -19,13 +19,16 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
     });
 
     useEffect(() => {
-        document.body.addEventListener('click', (event) => {
-            // console.log("CLICK!!");
+        const onBodyClick = (event) => {
             if(ref.current.contains(event.target)) {
                 return;
             }
             setOpen(false);
-        }, { capture: true });
+        }
+        document.body.addEventListener('click', onBodyClick, { capture: true });
+        return () => { //whenever our components are about to be removed from the DOM, we remove that callback entirely
+            document.body.removeEventListener('click', onBodyClick, { capture: true });
+        };
     }, []); //ran only once to set event listener
 
     // console.log(ref.current); //returns ui form
