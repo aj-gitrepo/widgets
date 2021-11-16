@@ -65,6 +65,3 @@ function App() {
 }
 
 export default App;
-
-// this method does a full page reload - loads all links 
-// not efficient
