@@ -3,6 +3,7 @@ import Accordion from "./components/Accordion";
 import Dropdown from "./components/Dropdown";
 import Search from "./components/Search";
 import Translate from "./components/Translate";
+import Route from "./components/Route";
 
 const items = [
     {
@@ -36,9 +37,41 @@ const options = [
 
 function App() {
 
+    const showAccordion = () => {
+        if (window.location.pathname === '/') {
+            return <Accordion items={items} />
+        }
+    };
+
+    const showSearch = () => {
+        if (window.location.pathname === '/search') {
+            return <Search />
+        }
+    };
+
+    const showDropdown = () => {
+        if (window.location.pathname === '/dropdown') {
+            return (
+                <Dropdown 
+                    options={options} 
+                    label="Select a color" 
+                />
+            );
+        }
+    };
+
+    const showTranslate = () => {
+        if (window.location.pathname === '/translate') {
+            return <Translate />
+        }
+    };
+
     return (
         <div>
-            <Translate />
+            {showAccordion()}
+            {showDropdown()}
+            {showSearch()}
+            {showTranslate()}
         </div>
     );
 }
