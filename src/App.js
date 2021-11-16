@@ -4,6 +4,7 @@ import Dropdown from "./components/Dropdown";
 import Search from "./components/Search";
 import Translate from "./components/Translate";
 import Route from "./components/Route";
+import Header from "./components/Header";
 
 const items = [
     {
@@ -37,43 +38,33 @@ const options = [
 
 function App() {
 
-    const showAccordion = () => {
-        if (window.location.pathname === '/') {
-            return <Accordion items={items} />
-        }
-    };
-
-    const showSearch = () => {
-        if (window.location.pathname === '/search') {
-            return <Search />
-        }
-    };
-
-    const showDropdown = () => {
-        if (window.location.pathname === '/dropdown') {
-            return (
-                <Dropdown 
-                    options={options} 
-                    label="Select a color" 
-                />
-            );
-        }
-    };
-
-    const showTranslate = () => {
-        if (window.location.pathname === '/translate') {
-            return <Translate />
-        }
-    };
+    const [selected, setSelected] = useState(options[0]);
 
     return (
         <div>
-            {showAccordion()}
-            {showDropdown()}
-            {showSearch()}
-            {showTranslate()}
+            <Header />
+            <Route path="/">
+                <Accordion items={items} />
+            </Route>
+            <Route path="/search">
+                <Search />
+            </Route>
+            <Route path="/dropdown">
+                <Dropdown 
+                    options={options} 
+                    label="Select a color" 
+                    selected={selected}
+                    onSelectedChange={setSelected}
+                />
+            </Route>
+            <Route path="/translate">
+                <Translate />
+            </Route>
         </div>
     );
 }
 
 export default App;
+
+// this method does a full page reload - loads all links 
+// not efficient
